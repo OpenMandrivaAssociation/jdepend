@@ -1,20 +1,15 @@
-%define name		jdepend
-%define version		2.9
-%define release		2
-%define section		free
-%define gcj_support	1
+%define section         free
+%define gcj_support     1
 
-Name:		%{name}
-Version:	%{version}
-Release:	%mkrel %{release}
-Epoch:		0
+Name:           jdepend
+Version:        2.9.1
+Release:        %mkrel 1.0.1
+Epoch:          0
 Summary:        Java Design Quality Metrics
 License:        BSD-style
 Url:            http://www.clarkware.com/
 Group:          Development/Java
-#Vendor:         JPackage Project
-#Distribution:	JPackage
-Source0:        http://www.clarkware.com/software/%{name}-%{version}-MDVCLEAN.tar.bz2
+Source0:        http://www.clarkware.com/software/jdepend-%{version}.zip
 BuildRequires:  ant
 %if %{gcj_support}
 Requires(post): java-gcj-compat
@@ -23,7 +18,7 @@ BuildRequires:  java-gcj-compat-devel
 %else
 BuildArch:      noarch
 %endif
-BuildRoot:      %{_tmppath}/%{name}-%{version}-buildroot
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 JDepend traverses a set of Java class and source file directories and
@@ -33,16 +28,16 @@ extensibility, reusability, and maintainability to effectively manage
 and control package dependencies.
 
 %package javadoc
-Summary:	Javadoc for %{name}
-Group:		Development/Java
+Summary:        Javadoc for %{name}
+Group:          Development/Java
 
 %description javadoc
 Javadoc for %{name}.
 
 %package demo
-Summary:	Demos for %{name}
-Group:		Development/Java
-Requires:	%{name} = %{version}-%{release}
+Summary:        Demos for %{name}
+Group:          Development/Java
+Requires:       %{name} = %{epoch}:%{version}-%{release}
 
 %description demo
 Demonstrations and samples for %{name}.
@@ -55,16 +50,19 @@ find . -name "*.jar" -exec rm -f {} \;
 find . -type d -exec chmod 755 {} \;
 
 %build
-%ant jar javadoc
+%{ant} jar javadoc
 
 %install
+%{__rm} -rf %{buildroot}
+
 # jars
 install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
 install -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
 (cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} ${jar/-%{version}/}; done)
 # javadoc
 install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-cp -pr build/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+cp -a build/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+%{__ln_s} %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 # demo
 install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/%{name}
 cp -pr sample $RPM_BUILD_ROOT%{_datadir}/%{name}
@@ -100,7 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %files
-%defattr(-,root,root)
+%defattr(0644,root,root,0755)
 %doc README LICENSE docs
 %{_javadir}/*
 %if %{gcj_support}
@@ -109,11 +107,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %files javadoc
-%defattr(-,root,root)
+%defattr(0644,root,root,0755)
 %{_javadocdir}/%{name}-%{version}
+%dir %{_javadocdir}/%{name}
 
 %files demo
-%defattr(-,root,root)
+%defattr(0644,root,root,0755)
 %{_datadir}/%{name}
-
-
