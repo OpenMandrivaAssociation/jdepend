@@ -3,13 +3,14 @@
 
 Name:           jdepend
 Version:        2.9.1
-Release:        %mkrel 1.0.2
+Release:        %mkrel 1.0.3
 Epoch:          0
 Summary:        Java Design Quality Metrics
 License:        BSD-style
 Url:            http://www.clarkware.com/
 Group:          Development/Java
 Source0:        http://www.clarkware.com/software/jdepend-%{version}.zip
+BuildRequires:  java-rpmbuild
 BuildRequires:  ant
 %if %{gcj_support}
 BuildRequires:  java-gcj-compat-devel
