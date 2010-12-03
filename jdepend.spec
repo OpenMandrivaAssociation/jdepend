@@ -3,7 +3,7 @@
 
 Name:           jdepend
 Version:        2.9.1
-Release:        %mkrel 1.0.6
+Release:        %mkrel 1.0.7
 Epoch:          0
 Summary:        Java Design Quality Metrics
 License:        BSD-style
