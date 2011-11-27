@@ -30,7 +30,7 @@
 
 Name:           jdepend
 Version:        2.9.1
-Release:        3
+Release:        5
 Summary:        Java Design Quality Metrics
 License:        BSD
 URL:            http://www.clarkware.com/
