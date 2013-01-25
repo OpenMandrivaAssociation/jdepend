@@ -1,23 +1,15 @@
-%define section         free
-%define gcj_support     1
-
 Name:           jdepend
 Version:        2.9.1
-Release:        %mkrel 1.1.0
+Release:        2
 Epoch:          0
 Summary:        Java Design Quality Metrics
 License:        BSD-style
-Url:            http://www.clarkware.com/
+Url:            http://clarkware.com/software/JDepend.html
 Group:          Development/Java
 Source0:        http://www.clarkware.com/software/jdepend-%{version}.zip
-BuildRequires:  java-rpmbuild
+BuildRequires:  java-rpmbuild java-1.6.0-openjdk-devel
 BuildRequires:  ant
-%if %{gcj_support}
-BuildRequires:  java-gcj-compat-devel
-%else
 BuildArch:      noarch
-%endif
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 JDepend traverses a set of Java class and source file directories and
@@ -49,7 +41,8 @@ find . -name "*.jar" -exec rm -f {} \;
 find . -type d -exec chmod 755 {} \;
 
 %build
-%{ant} jar javadoc
+export JAVA_HOME=%_prefix/lib/jvm/java-1.6.0
+ant jar javadoc
 
 %install
 %{__rm} -rf %{buildroot}
@@ -81,29 +74,10 @@ for i in `find $RPM_BUILD_ROOT%{_javadocdir} -type f -name "*.htm*" -o -name "*.
     %{__perl} -pi -e 's/\r\n/\n/g' $i
 done
 
-%if %{gcj_support}
-%{_bindir}/aot-compile-rpm
-%endif
-
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-%if %{gcj_support}
-%post
-%{update_gcjdb}
-
-%postun
-%{clean_gcjdb}
-%endif
-
 %files
 %defattr(0644,root,root,0755)
 %doc README LICENSE docs
 %{_javadir}/*
-%if %{gcj_support}
-%dir %{_libdir}/gcj/%{name}
-%attr(-,root,root) %{_libdir}/gcj/%{name}/*
-%endif
 
 %files javadoc
 %defattr(0644,root,root,0755)
