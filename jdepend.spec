@@ -1,7 +1,7 @@
 Summary:        Java Design Quality Metrics
 Name:           jdepend
 Version:        2.9.1
-Release:        2
+Release:        3
 License:        BSD-style
 Url:            http://clarkware.com/software/JDepend.html
 Group:          Development/Java
