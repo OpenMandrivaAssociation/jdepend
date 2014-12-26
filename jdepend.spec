@@ -31,7 +31,8 @@
 
 Name:           jdepend
 Version:        2.9.1
-Release:        9.0%{?dist}
+Release:        12.1
+Group:		Development/Java
 Epoch:          0
 Summary:        Java Design Quality Metrics
 License:        BSD
@@ -100,11 +101,8 @@ install -pm 644 %{SOURCE1} $RPM_BUILD_ROOT%{_mavenpomdir}/JPP-%{name}.pom
 # depmap
 %add_maven_depmap JPP-%{name}.pom %{name}.jar
 
-%files
+%files -f .mfiles
 %doc README LICENSE docs
-%{_javadir}/*
-%{_mavenpomdir}/*
-%{_mavendepmapfragdir}/*
 
 %files javadoc
 %{_javadocdir}/%{name}-%{version}
