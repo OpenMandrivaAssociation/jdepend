@@ -31,7 +31,7 @@
 
 Name:           jdepend
 Version:        2.9.1
-Release:        12.2
+Release:        12.3
 Group:		Development/Java
 Epoch:          0
 Summary:        Java Design Quality Metrics
