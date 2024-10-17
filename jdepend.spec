@@ -36,7 +36,7 @@ Group:		Development/Java
 Epoch:          0
 Summary:        Java Design Quality Metrics
 License:        BSD
-URL:            http://www.clarkware.com/
+URL:            https://www.clarkware.com/
 
 #Downloaded from http://github.com/clarkware/jdepend/tarball/2.9.1
 Source0:        clarkware-jdepend-5798059.tar.gz
